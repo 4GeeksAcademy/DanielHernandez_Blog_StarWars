@@ -3,7 +3,7 @@ export const Footer = () => (
 
 		<p>
 			Made with <i className="fa fa-heart text-danger" /> by{" "}
-			<p>Daniel Hernández</p>
+			Daniel Hernández
 		</p>
 	</footer>
 );

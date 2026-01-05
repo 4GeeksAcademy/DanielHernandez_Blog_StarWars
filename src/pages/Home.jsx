@@ -9,7 +9,6 @@ export const Home = () => {
 	const { store, dispatch } = useGlobalReducer();
 
 	useEffect(() => {
-		// Carga por separado para que si people ya está, planets aun así se pida
 		if (store.people.length === 0) loadPeople(dispatch, store);
 		if (store.planets.length === 0) loadPlanets(dispatch, store);
 	}, [store.people.length, store.planets.length]);
@@ -31,10 +30,9 @@ export const Home = () => {
 			<h1 className="d-flex justify-content-start my-4 text-danger">People</h1>
 			<div className="cards-scroll-container mb-5">
 				{store.people.map(person => (
-					<div className="card homeCard p-1" key={person.uid} style={{ width: "18rem" }}>
+					<div className="card homeCard p-1" key={person.uid}>
 						<img
 							src={rigoImageUrl}
-							className="card-img-top ratio ratio-16x9"
 							alt={person.name}
 						/>
 
@@ -66,10 +64,9 @@ export const Home = () => {
 			<h1 className="d-flex justify-content-start my-4 text-danger">Planets</h1>
 			<div className="cards-scroll-container mb-5">
 				{store.planets.map(planet => (
-					<div className="card homeCard p-1" key={planet.uid} style={{ width: "18rem" }}>
+					<div className="card homeCard p-1" key={planet.uid}>
 						<img
 							src={rigoImageUrl}
-							className="card-img-top ratio ratio-16x9"
 							alt={planet.name}
 						/>
 

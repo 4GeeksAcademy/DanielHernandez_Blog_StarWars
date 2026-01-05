@@ -23,7 +23,7 @@ export function People() {
                 <div className="text-center px-5">
                     <h1>{person.name}</h1>
                     <p>
-                        A long time ago in a galaxy far, far away...
+                        A long time ago in a galaxy far, far away... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     </p>
                 </div>
             </div>

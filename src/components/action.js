@@ -63,7 +63,7 @@ async function mapWithConcurrency(items, mapper, concurrency = 4) {
     return results;
 }
 
-// Construye items para Home con "resumen" (2-3 props)
+// Construye items para Home con "resumen"
 function buildHomeItem(kind, listItem, detail) {
     const props = detail.properties || {};
     const uid = listItem.uid;
@@ -105,9 +105,9 @@ async function loadCategory(dispatch, store, kind, actionType) {
     }
 
     // 3) fetch lista
-    const list = await fetchList(kind, 12, 1); // ajusta limit si quieres más/menos cards
+    const list = await fetchList(kind, 12, 1); // ajustar limit si se quieren más/menos cards
 
-    // 4) fetch detalles SOLO para esos 12, con concurrencia limitada
+    // 4) fetch con detalles y concurrencia limitada
     const details = await mapWithConcurrency(
         list,
         async (item) => fetchDetailByUrl(item.url),
@@ -137,7 +137,7 @@ export async function loadPlanets(dispatch, store) {
 }
 
 
-// Para la vista detalle (si quieres datos full allí)
+// Para la vista detalle
 export async function fetchDetails(kind, uid) {
     const resp = await fetch(`${API}/${kind}/${uid}`);
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
