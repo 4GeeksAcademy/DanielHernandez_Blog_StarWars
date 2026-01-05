@@ -1,25 +1,60 @@
-// Import necessary hooks and functions from React.
-import { useContext, useReducer, createContext } from "react";
-import storeReducer, { initialStore } from "../store"  // Import the reducer and the initial state.
+import { useContext, useReducer, createContext, useEffect } from "react";
+import storeReducer, { initialStore } from "../store";
 
-// Create a context to hold the global state of the application
-// We will call this global state the "store" to avoid confusion while using local states
-const StoreContext = createContext()
+const StoreContext = createContext();
 
-// Define a provider component that encapsulates the store and warps it in a context provider to 
-// broadcast the information throught all the app pages and components.
-export function StoreProvider({ children }) {
-    // Initialize reducer with the initial state.
-    const [store, dispatch] = useReducer(storeReducer, initialStore())
-    // Provide the store and dispatch method to all child components.
-    return <StoreContext.Provider value={{ store, dispatch }}>
-        {children}
-    </StoreContext.Provider>
+const STORAGE_KEY = "sw_blog_store_v1";
+
+function initFromStorage() {
+    const base = initialStore();
+
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return base;
+
+        const parsed = JSON.parse(raw);
+
+        return {
+            ...base,
+            people: parsed.people || [],
+            planets: parsed.planets || [],
+            favorites: parsed.favorites || []
+        };
+    } catch (e) {
+        console.warn("Failed to init store from localStorage:", e);
+        return base;
+    }
 }
 
-// Custom hook to access the global state and dispatch function.
+export function StoreProvider({ children }) {
+    // init desde localStorage
+    const [store, dispatch] = useReducer(storeReducer, undefined, initFromStorage);
+
+    // Persistencia automática
+    useEffect(() => {
+        try {
+            localStorage.setItem(
+                STORAGE_KEY,
+                JSON.stringify({
+                    people: store.people,
+                    planets: store.planets,
+                    favorites: store.favorites,
+                    savedAt: Date.now()
+                })
+            );
+        } catch (e) {
+            console.warn("Failed to persist store:", e);
+        }
+    }, [store.people, store.planets, store.favorites]);
+
+    return (
+        <StoreContext.Provider value={{ store, dispatch }}>
+            {children}
+        </StoreContext.Provider>
+    );
+}
+
 export default function useGlobalReducer() {
-    const { dispatch, store } = useContext(StoreContext)
-    return { dispatch, store };
+    return useContext(StoreContext);
 }
 

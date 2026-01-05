@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
-import { loadPeople, loadPlanets} from "../components/action.js";
+import { loadPeople, loadPlanets } from "../components/action.js";
 import { Link } from "react-router-dom";
 
 
@@ -9,16 +9,10 @@ export const Home = () => {
 	const { store, dispatch } = useGlobalReducer();
 
 	useEffect(() => {
-		if (store.people.length === 0 && store.planets.length === 0 && store.starships.length === 0) {
-			loadPeople(dispatch, store);
-
-			const t1 = setTimeout(() => loadPlanets(dispatch, store), 3000);
-
-			return () => {
-				clearTimeout(t1); // Cargar planetas
-			};
-		}
-	}, []);
+		// Carga por separado para que si people ya está, planets aun así se pida
+		if (store.people.length === 0) loadPeople(dispatch, store);
+		if (store.planets.length === 0) loadPlanets(dispatch, store);
+	}, [store.people.length, store.planets.length]);
 
 	const isFavorite = (uid, kind) =>
 		store.favorites.some(f => f.uid === uid && f.kind === kind);

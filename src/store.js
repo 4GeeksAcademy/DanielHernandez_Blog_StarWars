@@ -2,7 +2,6 @@ export const initialStore = () => {
   return {
     people: [],
     planets: [],
-    starships: [],
     favorites: [],
     message: null,
   };
