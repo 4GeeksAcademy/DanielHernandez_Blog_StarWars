@@ -13,7 +13,7 @@ export const Navbar = () => {
 			<div className="container">
 				<Link to="/" className="navbar-brand mb-0 h1">
 					<img
-						className="tituloNav"
+						className="navTitle"
 						src="https://i.pinimg.com/1200x/b6/af/5a/b6af5aeff0ee43a4253fc70c167bb6db.jpg"
 						alt="Star Wars"
 					/>

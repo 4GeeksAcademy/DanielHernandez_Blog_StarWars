@@ -1,28 +1,21 @@
 import { useEffect } from "react";
+import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
-import { loadPeople, loadPlanets, loadStarships } from "../components/action.js";
+import { loadPeople, loadPlanets} from "../components/action.js";
 import { Link } from "react-router-dom";
 
-const getImageUrl = (kind, uid) => {
-	// Visual Guide usa endpoints distintos para people/planets/starships
-	// kind: "people" | "planets" | "starships"
-	return `https://starwars-visualguide.com/assets/img/${kind}/${uid}.jpg`;
-};
 
 export const Home = () => {
 	const { store, dispatch } = useGlobalReducer();
 
 	useEffect(() => {
-		// Carga escalonada como tenías tú, pero con nombres nuevos
 		if (store.people.length === 0 && store.planets.length === 0 && store.starships.length === 0) {
 			loadPeople(dispatch, store);
 
-			const t1 = setTimeout(() => loadPlanets(dispatch, store), 1500);
-			const t2 = setTimeout(() => loadStarships(dispatch, store), 3000);
+			const t1 = setTimeout(() => loadPlanets(dispatch, store), 3000);
 
 			return () => {
-				clearTimeout(t1);
-				clearTimeout(t2);
+				clearTimeout(t1); // Cargar planetas
 			};
 		}
 	}, []);
@@ -44,12 +37,11 @@ export const Home = () => {
 			<h1 className="d-flex justify-content-start my-4 text-danger">People</h1>
 			<div className="cards-scroll-container mb-5">
 				{store.people.map(person => (
-					<div className="card tamaño-card p-1" key={person.uid} style={{ width: "18rem" }}>
+					<div className="card homeCard p-1" key={person.uid} style={{ width: "18rem" }}>
 						<img
-							src={getImageUrl("characters", person.uid)}
+							src={rigoImageUrl}
 							className="card-img-top ratio ratio-16x9"
 							alt={person.name}
-							onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/400x225?text=No+Image"; }}
 						/>
 
 						<div className="card-body text-start">
@@ -80,12 +72,11 @@ export const Home = () => {
 			<h1 className="d-flex justify-content-start my-4 text-danger">Planets</h1>
 			<div className="cards-scroll-container mb-5">
 				{store.planets.map(planet => (
-					<div className="card tamaño-card p-1" key={planet.uid} style={{ width: "18rem" }}>
+					<div className="card homeCard p-1" key={planet.uid} style={{ width: "18rem" }}>
 						<img
-							src={getImageUrl("planets", planet.uid)}
+							src={rigoImageUrl}
 							className="card-img-top ratio ratio-16x9"
 							alt={planet.name}
-							onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/400x225?text=No+Image"; }}
 						/>
 
 						<div className="card-body text-start">
@@ -104,41 +95,6 @@ export const Home = () => {
 									aria-label="toggle favorite"
 								>
 									<i className={isFavorite(planet.uid, "planets") ? "fa-solid fa-heart" : "fa-regular fa-heart"} />
-								</button>
-							</div>
-						</div>
-					</div>
-				))}
-			</div>
-
-			{/* STARSHIPS */}
-			<h1 className="d-flex justify-content-start my-4 text-danger">Starships</h1>
-			<div className="cards-scroll-container mb-5">
-				{store.starships.map(ship => (
-					<div className="card tamaño-card p-1" key={ship.uid} style={{ width: "18rem" }}>
-						<img
-							src={getImageUrl("starships", ship.uid)}
-							className="card-img-top ratio ratio-16x9"
-							alt={ship.name}
-							onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/400x225?text=No+Image"; }}
-						/>
-
-						<div className="card-body text-start">
-							<h5 className="card-title">{ship.name}</h5>
-							<p className="mb-1">Model: {ship.model}</p>
-							<p className="mb-3">Class: {ship.starship_class}</p>
-
-							<div className="d-flex justify-content-between">
-								<Link className="btn btn-outline-primary" to={`/starships/${ship.uid}`}>
-									Learn more!
-								</Link>
-
-								<button
-									className="btn btn-outline-warning"
-									onClick={() => toggleFavorite(ship, "starships")}
-									aria-label="toggle favorite"
-								>
-									<i className={isFavorite(ship.uid, "starships") ? "fa-solid fa-heart" : "fa-regular fa-heart"} />
 								</button>
 							</div>
 						</div>

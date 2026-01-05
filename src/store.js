@@ -5,11 +5,6 @@ export const initialStore = () => {
     starships: [],
     favorites: [],
     message: null,
-
-    todos: [
-      { id: 1, title: "Make the bed", background: null },
-      { id: 2, title: "Do my homework", background: null }
-    ]
   };
 };
 
@@ -31,8 +26,6 @@ export default function storeReducer(store, action = {}) {
     case "load_planets":
       return { ...store, planets: action.payload };
 
-    case "load_starships":
-      return { ...store, starships: action.payload };
 
     // Favoritos: toggle (si existe, lo quita; si no, lo añade)
     case "toggle_favorite": {

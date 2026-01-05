@@ -41,13 +41,3 @@ export async function loadPlanets(dispatch, store) {
     }
 }
 
-export async function loadStarships(dispatch, store) {
-    if (store.starships.length > 0) return;
-
-    try {
-        const starships = await fetchListWithDetails("starships");
-        dispatch({ type: "load_starships", payload: starships });
-    } catch (error) {
-        console.log("Error loading starships:", error);
-    }
-}

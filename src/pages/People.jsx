@@ -1,7 +1,7 @@
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useParams } from "react-router-dom";
+import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 
-const imgUrl = (uid) => `https://starwars-visualguide.com/assets/img/characters/${uid}.jpg`;
 
 export function People() {
     const { uid } = useParams();
@@ -15,10 +15,9 @@ export function People() {
         <div className="container p-5">
             <div className="d-flex justify-content-between">
                 <img
-                    src={imgUrl(uid)}
+                    src={rigoImageUrl}
                     alt={person.name}
-                    className="imgpersonaje ratio ratio-4x3 mb-2"
-                    onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/400x300?text=No+Image"; }}
+                    className="infoCard ratio ratio-4x3 mb-2"
                 />
 
                 <div className="text-center px-5">

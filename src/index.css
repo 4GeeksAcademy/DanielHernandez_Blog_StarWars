@@ -1,15 +1,24 @@
 .cards-scroll-container {
-  display: flex;
-  gap: 1rem;                
-  overflow-x: auto;          
-  padding-bottom: 10px;      
-  scroll-behavior: smooth;   
-  white-space: nowrap;       
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+    white-space: nowrap;
 }
-.tamaño-card{
-    min-width: 250px;      
-  flex-shrink: 0;
+
+.homeCard {
+    min-width: 250px;
+    width: 18rem;
+    flex-shrink: 0;
 }
-.tituloNav{
-  width:100px
+
+.navTitle {
+    width: 100px
+}
+
+.infoCard {
+    min-width: 250px;
+    width: 36rem;
+    flex-shrink: 0;
 }

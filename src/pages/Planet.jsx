@@ -2,7 +2,6 @@ import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useParams } from "react-router-dom";
 import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 
-const imgUrl = (uid) => `https://starwars-visualguide.com/assets/img/planets/${uid}.jpg`;
 
 export function Planet() {
     const { uid } = useParams();
@@ -14,15 +13,16 @@ export function Planet() {
     return (
         <div className="container p-5">
             <div className="d-flex justify-content-between">
-                <img src={imgUrl(uid)} alt={planet.name} className="imgpersonaje ratio ratio-4x3 mb-2" onError={(e) => {
-                    e.currentTarget.src = "https://via.placeholder.com/400x300?text=No+Image";
-                }}
+                <img
+                    src={rigoImageUrl}
+                    alt={planet.name} 
+                    className="infoCard ratio ratio-4x3 mb-2" 
                 />
 
                 <div className="text-center px-5">
                     <h1>{planet.name}</h1>
                     <p>
-                        Planet overview using SWAPI data. (Otra pequeña diferencia respecto al lorem 😄)
+                        A long time ago in a galaxy far, far away...
                     </p>
                 </div>
             </div>
